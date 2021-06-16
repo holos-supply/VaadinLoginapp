@@ -5,10 +5,12 @@ import com.vaadin.flow.server.PWA;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.vaadin.artur.helpers.LaunchUtil;
 import com.vaadin.flow.theme.Theme;
-
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 /**
  * The entry point of the Spring Boot application.
  *
@@ -16,7 +18,11 @@ import com.vaadin.flow.theme.Theme;
  * and some desktop browsers.
  *
  */
-@SpringBootApplication
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+
+
 @Theme(value = "loginwithvaadin")
 @PWA(name = "LoginWithVaadin", shortName = "LoginWithVaadin", offlineResources = {"images/logo.png"})
 public class Application extends SpringBootServletInitializer implements AppShellConfigurator {
